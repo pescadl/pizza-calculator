@@ -21,6 +21,14 @@ public class GridAdapter extends BaseAdapter{
         context = c;
     }
 
+    public void update(int slicesPerPizza, int slicesPerPerson){
+        int size = list.size();
+        for(int i=0; i<size; i++){
+            Node node = list.remove(0);
+            addItem(node.name, node.numPeople, slicesPerPizza, slicesPerPerson);
+        }
+    }
+
     public void addItem(String name, int numPeople, int slicesPerPizza, int slicesPerPerson){
         int whole = slicesPerPerson * numPeople / slicesPerPizza;
         int fraction = slicesPerPerson * numPeople % slicesPerPizza;

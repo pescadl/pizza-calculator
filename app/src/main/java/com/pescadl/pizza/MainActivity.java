@@ -93,7 +93,8 @@ public class MainActivity extends AppCompatActivity implements AddPizzaDialog.Ad
             ((EditText) findViewById(R.id.text_slices_per_person)).setText(String.valueOf(num));
         }
 
-        //TODO reset the adapter with updated values
+        adapter.update(getSlicesPerPizza(), getSlicesPerPerson());
+        ((GridView) findViewById(R.id.view_grid)).setAdapter(adapter);
     }
 
     private int getSlicesPerPizza(){
