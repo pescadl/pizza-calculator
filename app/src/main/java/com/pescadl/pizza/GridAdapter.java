@@ -21,8 +21,23 @@ public class GridAdapter extends BaseAdapter{
         context = c;
     }
 
-    public void addItem(String name, int people, int pizza, int person){
-        list.add(new Node(name, people, (people * person / pizza) + ((people * person % pizza !=0) ? " "+(people * person % pizza)+"/"+pizza : "")));
+    public void addItem(String name, int numPeople, int slicesPerPizza, int slicesPerPerson){
+        int whole = slicesPerPerson * numPeople / slicesPerPizza;
+        int fraction = slicesPerPerson * numPeople % slicesPerPizza;
+        String numPizzas = "";
+        if(whole == 0 && fraction == 0){
+            numPizzas = "0";
+        }
+        else if(whole == 0){
+            numPizzas = fraction + "/" + slicesPerPizza;
+        }
+        else if(fraction == 0){
+            numPizzas = whole + "";
+        }
+        else{
+            numPizzas = whole + " " + fraction+"/"+slicesPerPizza;
+        }
+        list.add(new Node(name, numPeople, numPizzas));
     }
 
     public void removeItem(int position){
@@ -52,8 +67,8 @@ public class GridAdapter extends BaseAdapter{
         }
         else{
             ((TextView) convertView.findViewById(R.id.name)).setText(list.get(position).name);
-            ((TextView) convertView.findViewById(R.id.people)).setText(String.valueOf(list.get(position).people));
-            ((TextView) convertView.findViewById(R.id.fraction)).setText(list.get(position).fraction);
+            ((TextView) convertView.findViewById(R.id.num_people)).setText(String.valueOf(list.get(position).numPeople));
+            ((TextView) convertView.findViewById(R.id.num_pizzas)).setText(list.get(position).numPizzas);
         }
 
         return convertView;

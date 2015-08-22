@@ -18,18 +18,17 @@ import android.widget.Toast;
 /**
  * Created by dayoung on 8/21/2015.
  */
-public class AddPizzaDialogFragment extends DialogFragment{
+public class AddPizzaDialog extends DialogFragment{
 
     EditText addPizzaName;
-    EditText addPizzaNum;
+    EditText addPeopleNum;
 
+    AddPizzaDialogListener listener;
     public interface AddPizzaDialogListener {
         public void onDialogPositiveClick(String name, int num);
     }
 
-    AddPizzaDialogListener listener;
-
-    public AddPizzaDialogFragment(){}
+    public AddPizzaDialog(){}
 
     @Override
     public void onAttach(Activity activity){
@@ -48,14 +47,14 @@ public class AddPizzaDialogFragment extends DialogFragment{
 
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_add_pizza, null);
         addPizzaName = (EditText) view.findViewById(R.id.add_pizza_name);
-        addPizzaNum = (EditText) view.findViewById(R.id.add_pizza_number);
+        addPeopleNum = (EditText) view.findViewById(R.id.add_num_people);
 
         builder.setView(view);
         builder.setTitle("Add Pizza");
         builder.setPositiveButton("Add", new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which){
-                listener.onDialogPositiveClick(addPizzaName.getText().toString(), Integer.parseInt(addPizzaNum.getText().toString()));
+                listener.onDialogPositiveClick(addPizzaName.getText().toString(), Integer.parseInt(addPeopleNum.getText().toString()));
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){

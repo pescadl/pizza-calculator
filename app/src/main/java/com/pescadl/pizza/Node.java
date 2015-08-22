@@ -5,23 +5,23 @@ package com.pescadl.pizza;
  */
 public class Node{
     String name;
-    int people;
-    String fraction;
+    int numPeople;
+    String numPizzas;
 
     public Node(){
         name = "";
-        people = 0;
-        fraction = "";
+        numPeople = 0;
+        numPizzas = "";
     }
 
     public Node(String n, int p, String f){
         name = n;
-        people = p;
-        fraction = f;
+        numPeople = p;
+        numPizzas = f;
     }
 
     @Override
     public String toString(){
-        return String.format("{name=%s, people=%d, fraction=%s}", name, people, fraction);
+        return String.format("{name=%s, people=%d, fraction=%s}", name, numPeople, numPizzas);
     }
 }
