@@ -48,7 +48,7 @@ public class AddPizzaDialog extends DialogFragment{
         builder.setPositiveButton("Add", new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which){
-                listener.onAddPizzaDialogPositiveClick(addPizzaName.getText().toString(), Integer.parseInt(addPeopleNum.getText().toString()));
+                //do nothing
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
@@ -59,5 +59,22 @@ public class AddPizzaDialog extends DialogFragment{
         });
 
         return builder.create();
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        ((AlertDialog)getDialog()).getButton(Dialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if(addPizzaName.getText().toString().equals("") || addPeopleNum.getText().toString().equals("")){
+                    //do nothing
+                }else{
+                    listener.onAddPizzaDialogPositiveClick(addPizzaName.getText().toString(), Integer.parseInt(addPeopleNum.getText().toString()));
+                    dismiss();
+                }
+            }
+        });
     }
 }
