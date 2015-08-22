@@ -1,5 +1,8 @@
 package com.pescadl.pizza;
 
+import android.app.Activity;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,7 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements AddPizzaDialogFragment.AddPizzaDialogListener{
     int slicesPerPizza;
     int slicesPerPerson;
 
@@ -40,14 +43,15 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                 // edit when click on grid
-                Toast.makeText(getBaseContext(), adapter.getItem(0).toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), adapter.getItem(position).toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
         findViewById(R.id.add_pizza).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                // dialog to add pizza
+                AddPizzaDialogFragment dialogFragment = new AddPizzaDialogFragment();
+                dialogFragment.show(getSupportFragmentManager(), "addPizza");
             }
         });
     }
@@ -72,5 +76,10 @@ public class MainActivity extends AppCompatActivity{
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDialogPositiveClick(String name, int num){
+        adapter.addItem(name, num, slicesPerPizza, slicesPerPerson);
     }
 }

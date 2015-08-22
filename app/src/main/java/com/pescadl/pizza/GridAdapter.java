@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 /**
  * Created by dayoung on 8/21/2015.
@@ -24,6 +23,10 @@ public class GridAdapter extends BaseAdapter{
 
     public void addItem(String name, int people, int pizza, int person){
         list.add(new Node(name, people, (people * person / pizza) + ((people * person % pizza !=0) ? " "+(people * person % pizza)+"/"+pizza : "")));
+    }
+
+    public void removeItem(int position){
+        list.remove(position);
     }
 
     @Override
@@ -45,7 +48,7 @@ public class GridAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent){
         if(convertView == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.grid_square, null);
+            convertView = inflater.inflate(R.layout.item_grid, null);
         }
         else{
             ((TextView) convertView.findViewById(R.id.name)).setText(list.get(position).name);
