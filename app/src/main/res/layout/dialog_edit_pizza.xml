@@ -6,13 +6,13 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/add_pizza_name"
+        android:id="@+id/edit_pizza_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Pizza Name"/>
 
     <EditText
-        android:id="@+id/add_num_people"
+        android:id="@+id/edit_num_people"
         android:inputType="number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

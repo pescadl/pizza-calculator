@@ -48,6 +48,25 @@ public class GridAdapter extends BaseAdapter{
         list.add(new Node(name, numPeople, numPizzas));
     }
 
+    public void editItem(String name, int numPeople, int slicesPerPizza, int slicesPerPerson, int position){
+        int whole = slicesPerPerson * numPeople / slicesPerPizza;
+        int fraction = slicesPerPerson * numPeople % slicesPerPizza;
+        String numPizzas = "";
+        if(whole == 0 && fraction == 0){
+            numPizzas = "0";
+        }
+        else if(whole == 0){
+            numPizzas = fraction + "/" + slicesPerPizza;
+        }
+        else if(fraction == 0){
+            numPizzas = whole + "";
+        }
+        else{
+            numPizzas = whole + " " + fraction+"/"+slicesPerPizza;
+        }
+        list.set(position, new Node(name, numPeople, numPizzas));
+    }
+
     public void removeItem(int position){
         list.remove(position);
     }
@@ -72,6 +91,10 @@ public class GridAdapter extends BaseAdapter{
         if(convertView == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.item_grid, null);
+
+            ((TextView) convertView.findViewById(R.id.name)).setText(list.get(position).name);
+            ((TextView) convertView.findViewById(R.id.num_people)).setText(String.valueOf(list.get(position).numPeople));
+            ((TextView) convertView.findViewById(R.id.num_pizzas)).setText(list.get(position).numPizzas);
         }
         else{
             ((TextView) convertView.findViewById(R.id.name)).setText(list.get(position).name);

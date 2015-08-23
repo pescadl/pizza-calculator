@@ -35,7 +35,6 @@ public class NumberPickerDialog extends DialogFragment{
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
-        super.onCreateDialog(savedInstanceState);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_number_picker, null);

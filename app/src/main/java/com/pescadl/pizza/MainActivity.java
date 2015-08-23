@@ -10,8 +10,9 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements AddPizzaDialog.AddPizzaDialogListener, NumberPickerDialog.NumberPickerDialogListener{
+public class MainActivity extends AppCompatActivity implements AddPizzaDialog.AddPizzaDialogListener, NumberPickerDialog.NumberPickerDialogListener, EditPizzaDialog.EditPizzaDialogListener{
     GridAdapter adapter;
+    int clickPosition;
     final String PIZZA_NUMBER_PICKER_DIALOG_TAG = "PizzaNumberPickerDialog";
     final String PERSON_NUMBER_PICKER_DIALOG_TAG = "PersonNumberPickerDialog";
 
@@ -45,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements AddPizzaDialog.Ad
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                 // TODO edit when click on grid
                 Toast.makeText(getBaseContext(), adapter.getItem(position).toString(), Toast.LENGTH_SHORT).show();
+                clickPosition = position;
+                EditPizzaDialog dialogFragment = new EditPizzaDialog();
+                dialogFragment.show(getSupportFragmentManager(), "EditPizzaDialog");
             }
         });
 
@@ -82,6 +86,13 @@ public class MainActivity extends AppCompatActivity implements AddPizzaDialog.Ad
     @Override
     public void onAddPizzaDialogPositiveClick(String name, int num){
         adapter.addItem(name, num, getSlicesPerPizza(), getSlicesPerPerson());
+        ((GridView) findViewById(R.id.view_grid)).setAdapter(adapter);
+    }
+
+    @Override
+    public void onEditPizzaDialogPositiveClick(String name, int num){
+        adapter.editItem(name, num, getSlicesPerPizza(), getSlicesPerPerson(), clickPosition);
+        ((GridView) findViewById(R.id.view_grid)).setAdapter(adapter);
     }
 
     @Override
