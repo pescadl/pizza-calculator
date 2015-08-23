@@ -6,7 +6,4 @@
     <string name="slices_per_pizza">Slices per Pizza</string>
     <string name="slices_per_person">Slices per Person</string>
     <string name="add_pizza">Add Pizza</string>
-    <string name="title_activity_add_pizza">AddPizzaActivity</string>
-
-    <string name="hello_world">Hello world!</string>
 </resources>

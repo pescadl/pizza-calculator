@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements AddPizzaDialog.AddPizzaDialogListener, NumberPickerDialog.NumberPickerDialogListener, EditPizzaDialog.EditPizzaDialogListener{
+public class MainActivity extends AppCompatActivity implements AddPizzaDialog.AddPizzaDialogListener, NumberPickerDialog.NumberPickerDialogListener, EditPizzaDialog.EditPizzaDialogListener, DeletePizzaDialog.DeletePizzaDialogListener{
     GridAdapter adapter;
     int clickPosition;
     final String PIZZA_NUMBER_PICKER_DIALOG_TAG = "PizzaNumberPickerDialog";
@@ -44,11 +44,9 @@ public class MainActivity extends AppCompatActivity implements AddPizzaDialog.Ad
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                // TODO edit when click on grid
-                Toast.makeText(getBaseContext(), adapter.getItem(position).toString(), Toast.LENGTH_SHORT).show();
                 clickPosition = position;
-                EditPizzaDialog dialogFragment = new EditPizzaDialog();
-                dialogFragment.show(getSupportFragmentManager(), "EditPizzaDialog");
+                PizzaOptionsDialog dialogFragment = new PizzaOptionsDialog();
+                dialogFragment.show(getSupportFragmentManager(), "PizzaOptionsDialog");
             }
         });
 
@@ -92,6 +90,12 @@ public class MainActivity extends AppCompatActivity implements AddPizzaDialog.Ad
     @Override
     public void onEditPizzaDialogPositiveClick(String name, int num){
         adapter.editItem(name, num, getSlicesPerPizza(), getSlicesPerPerson(), clickPosition);
+        ((GridView) findViewById(R.id.view_grid)).setAdapter(adapter);
+    }
+
+    @Override
+    public void onDeletePizzaDialogPositiveClick(){
+        adapter.removeItem(clickPosition);
         ((GridView) findViewById(R.id.view_grid)).setAdapter(adapter);
     }
 
