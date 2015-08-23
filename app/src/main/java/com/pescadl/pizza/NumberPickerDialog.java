@@ -6,6 +6,7 @@ import android.app.Dialog;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.NumberPicker;
@@ -15,24 +16,12 @@ import android.widget.NumberPicker;
  */
 public class NumberPickerDialog extends DialogFragment{
 
-    NumberPicker numberPicker;
-    NumberPickerDialogListener listener;
-    public interface NumberPickerDialogListener{
-        public void onNumberPickerDialogPositiveClick(String tag, int num);
-    }
-
-    @Override
-    public void onAttach(Activity activity){
-        super.onAttach(activity);
-        try{
-            listener = (NumberPickerDialogListener) activity;
-        }catch(ClassCastException e){
-            throw new ClassCastException(activity.toString() + "must implement AddPizzaDialogListener");
-        }
-    }
+    private NumberPicker numberPicker;
+    private NumberPickerDialogListener listener;
 
     public NumberPickerDialog(){}
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -59,5 +48,19 @@ public class NumberPickerDialog extends DialogFragment{
         });
 
         return builder.create();
+    }
+
+    public interface NumberPickerDialogListener{
+        void onNumberPickerDialogPositiveClick(String tag, int num);
+    }
+
+    @Override
+    public void onAttach(Activity activity){
+        super.onAttach(activity);
+        try{
+            listener = (NumberPickerDialogListener) activity;
+        }catch(ClassCastException e){
+            throw new ClassCastException(activity.toString() + "must implement NumberPickerDialogListener");
+        }
     }
 }

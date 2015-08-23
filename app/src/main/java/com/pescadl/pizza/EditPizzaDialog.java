@@ -19,21 +19,8 @@ public class EditPizzaDialog extends DialogFragment{
     EditText editPeopleNum;
 
     EditPizzaDialogListener listener;
-    public interface EditPizzaDialogListener {
-        public void onEditPizzaDialogPositiveClick(String name, int num);
-    }
 
     public EditPizzaDialog(){}
-
-    @Override
-    public void onAttach(Activity activity){
-        super.onAttach(activity);
-        try{
-            listener = (EditPizzaDialogListener) activity;
-        }catch(ClassCastException e){
-            throw new ClassCastException(activity.toString() + "must implement EditPizzaDialogListener");
-        }
-    }
 
     @NonNull
     @Override
@@ -44,8 +31,8 @@ public class EditPizzaDialog extends DialogFragment{
         editPizzaName = (EditText) view.findViewById(R.id.edit_pizza_name);
         editPeopleNum = (EditText) view.findViewById(R.id.edit_num_people);
 
-        editPizzaName.setText(((Node)(((MainActivity) getActivity()).adapter.getItem( ((MainActivity) getActivity()).clickPosition ))).name);
-        editPeopleNum.setText(String.valueOf(((Node) (((MainActivity) getActivity()).adapter.getItem(((MainActivity) getActivity()).clickPosition))).numPeople));
+        editPizzaName.setText(((Node)(((MainActivity) getActivity()).getAdapter().getItem( ((MainActivity) getActivity()).getGridPositionClicked() ))).name);
+        editPeopleNum.setText(String.valueOf(((Node) (((MainActivity) getActivity()).getAdapter().getItem(((MainActivity) getActivity()).getGridPositionClicked()))).numPeople));
 
         builder.setView(view);
         builder.setTitle("Edit Pizza");
@@ -78,5 +65,19 @@ public class EditPizzaDialog extends DialogFragment{
                 }
             }
         });
+    }
+
+    public interface EditPizzaDialogListener {
+        void onEditPizzaDialogPositiveClick(String name, int num);
+    }
+
+    @Override
+    public void onAttach(Activity activity){
+        super.onAttach(activity);
+        try{
+            listener = (EditPizzaDialogListener) activity;
+        }catch(ClassCastException e){
+            throw new ClassCastException(activity.toString() + "must implement EditPizzaDialogListener");
+        }
     }
 }

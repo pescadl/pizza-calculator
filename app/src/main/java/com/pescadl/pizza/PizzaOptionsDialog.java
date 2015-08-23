@@ -30,6 +30,8 @@ public class PizzaOptionsDialog extends DialogFragment{
                         DeletePizzaDialog dialogFragment2 = new DeletePizzaDialog();
                         dialogFragment2.show(getActivity().getSupportFragmentManager(), "DeletePizzaDialog");
                         break;
+                    default:
+                        break;
                 }
             }
         });

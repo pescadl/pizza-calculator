@@ -21,15 +21,10 @@ public class GridAdapter extends BaseAdapter{
         context = c;
     }
 
-    public void update(int slicesPerPizza, int slicesPerPerson){
-        int size = list.size();
-        for(int i=0; i<size; i++){
-            Node node = list.remove(0);
-            addItem(node.name, node.numPeople, slicesPerPizza, slicesPerPerson);
-        }
-    }
-
-    public void addItem(String name, int numPeople, int slicesPerPizza, int slicesPerPerson){
+    /**
+     * @param position -1 if addItem, >=0 if setItem
+     */
+    public void addItem(String name, int numPeople, int slicesPerPizza, int slicesPerPerson, int position){
         int whole = slicesPerPerson * numPeople / slicesPerPizza;
         int fraction = slicesPerPerson * numPeople % slicesPerPizza;
         String numPizzas = "";
@@ -45,30 +40,28 @@ public class GridAdapter extends BaseAdapter{
         else{
             numPizzas = whole + " " + fraction+"/"+slicesPerPizza;
         }
-        list.add(new Node(name, numPeople, numPizzas));
+
+        if(position == -1){
+            list.add(new Node(name, numPeople, numPizzas));
+        }
+        else{
+            list.set(position, new Node(name, numPeople, numPizzas));
+        }
     }
 
     public void editItem(String name, int numPeople, int slicesPerPizza, int slicesPerPerson, int position){
-        int whole = slicesPerPerson * numPeople / slicesPerPizza;
-        int fraction = slicesPerPerson * numPeople % slicesPerPizza;
-        String numPizzas = "";
-        if(whole == 0 && fraction == 0){
-            numPizzas = "0";
-        }
-        else if(whole == 0){
-            numPizzas = fraction + "/" + slicesPerPizza;
-        }
-        else if(fraction == 0){
-            numPizzas = whole + "";
-        }
-        else{
-            numPizzas = whole + " " + fraction+"/"+slicesPerPizza;
-        }
-        list.set(position, new Node(name, numPeople, numPizzas));
+        addItem(name, numPeople, slicesPerPizza, slicesPerPerson, position);
     }
 
     public void removeItem(int position){
         list.remove(position);
+    }
+
+    public void update(int slicesPerPizza, int slicesPerPerson){
+        int size = list.size();
+        for(int i=0; i<size; i++){
+            editItem(list.get(i).name, list.get(i).numPeople, slicesPerPizza, slicesPerPerson, i);
+        }
     }
 
     @Override

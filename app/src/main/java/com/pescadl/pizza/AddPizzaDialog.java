@@ -19,21 +19,8 @@ public class AddPizzaDialog extends DialogFragment{
     EditText addPeopleNum;
 
     AddPizzaDialogListener listener;
-    public interface AddPizzaDialogListener {
-        public void onAddPizzaDialogPositiveClick(String name, int num);
-    }
 
     public AddPizzaDialog(){}
-
-    @Override
-    public void onAttach(Activity activity){
-        super.onAttach(activity);
-        try{
-            listener = (AddPizzaDialogListener) activity;
-        }catch(ClassCastException e){
-            throw new ClassCastException(activity.toString() + "must implement AddPizzaDialogListener");
-        }
-    }
 
     @NonNull
     @Override
@@ -75,5 +62,19 @@ public class AddPizzaDialog extends DialogFragment{
                 }
             }
         });
+    }
+
+    public interface AddPizzaDialogListener {
+        void onAddPizzaDialogPositiveClick(String name, int num);
+    }
+
+    @Override
+    public void onAttach(Activity activity){
+        super.onAttach(activity);
+        try{
+            listener = (AddPizzaDialogListener) activity;
+        }catch(ClassCastException e){
+            throw new ClassCastException(activity.toString() + "must implement AddPizzaDialogListener");
+        }
     }
 }

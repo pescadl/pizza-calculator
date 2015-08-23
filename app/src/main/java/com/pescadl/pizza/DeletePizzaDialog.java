@@ -14,21 +14,8 @@ import android.support.v4.app.DialogFragment;
 public class DeletePizzaDialog extends DialogFragment{
 
     DeletePizzaDialogListener listener;
-    public interface DeletePizzaDialogListener {
-        public void onDeletePizzaDialogPositiveClick();
-    }
 
     public DeletePizzaDialog(){}
-
-    @Override
-    public void onAttach(Activity activity){
-        super.onAttach(activity);
-        try{
-            listener = (DeletePizzaDialogListener) activity;
-        }catch(ClassCastException e){
-            throw new ClassCastException(activity.toString() + "must implement DeletePizzaDialogListener");
-        }
-    }
 
     @NonNull
     @Override
@@ -50,5 +37,19 @@ public class DeletePizzaDialog extends DialogFragment{
         });
 
         return builder.create();
+    }
+
+    public interface DeletePizzaDialogListener {
+        void onDeletePizzaDialogPositiveClick();
+    }
+
+    @Override
+    public void onAttach(Activity activity){
+        super.onAttach(activity);
+        try{
+            listener = (DeletePizzaDialogListener) activity;
+        }catch(ClassCastException e){
+            throw new ClassCastException(activity.toString() + "must implement DeletePizzaDialogListener");
+        }
     }
 }

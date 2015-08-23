@@ -2,8 +2,4 @@
     <string name="app_name">Pizza</string>
 
     <string name="action_settings">Settings</string>
-
-    <string name="slices_per_pizza">Slices per Pizza</string>
-    <string name="slices_per_person">Slices per Person</string>
-    <string name="add_pizza">Add Pizza</string>
 </resources>
