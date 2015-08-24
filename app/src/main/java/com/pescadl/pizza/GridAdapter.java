@@ -2,6 +2,7 @@ package com.pescadl.pizza;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,13 +33,13 @@ public class GridAdapter extends BaseAdapter{
             numPizzas = "0";
         }
         else if(whole == 0){
-            numPizzas = fraction + "/" + slicesPerPizza;
+            numPizzas = String.format("<sup>%d</sup>&frasl;<sub>%d</sub>", fraction, slicesPerPizza);
         }
         else if(fraction == 0){
-            numPizzas = whole + "";
+            numPizzas = String.valueOf(whole);
         }
         else{
-            numPizzas = whole + " " + fraction+"/"+slicesPerPizza;
+            numPizzas = String.format("%d <sup>%d</sup>&frasl;<sub>%d</sub>", whole, fraction, slicesPerPizza);
         }
 
         if(position == -1){
@@ -87,12 +88,12 @@ public class GridAdapter extends BaseAdapter{
 
             ((TextView) convertView.findViewById(R.id.name)).setText(list.get(position).name);
             ((TextView) convertView.findViewById(R.id.num_people)).setText(String.valueOf(list.get(position).numPeople));
-            ((TextView) convertView.findViewById(R.id.num_pizzas)).setText(list.get(position).numPizzas);
+            ((TextView) convertView.findViewById(R.id.num_pizzas)).setText(Html.fromHtml(list.get(position).numPizzas));
         }
         else{
             ((TextView) convertView.findViewById(R.id.name)).setText(list.get(position).name);
             ((TextView) convertView.findViewById(R.id.num_people)).setText(String.valueOf(list.get(position).numPeople));
-            ((TextView) convertView.findViewById(R.id.num_pizzas)).setText(list.get(position).numPizzas);
+            ((TextView) convertView.findViewById(R.id.num_pizzas)).setText(Html.fromHtml(list.get(position).numPizzas));
         }
 
         return convertView;

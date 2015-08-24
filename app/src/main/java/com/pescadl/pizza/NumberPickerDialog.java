@@ -31,6 +31,12 @@ public class NumberPickerDialog extends DialogFragment{
         numberPicker = (NumberPicker) view.findViewById(R.id.number_picker);
         numberPicker.setMinValue(1);
         numberPicker.setMaxValue(12);
+        if(getTag().equals(((MainActivity)getActivity()).TAG_PIZZA_NUMBER_PICKER_DIALOG)){
+            numberPicker.setValue( ((MainActivity) getActivity()).getSlicesPerPizza() );
+        }
+        else if(getTag().equals(((MainActivity)getActivity()).TAG_PERSON_NUMBER_PICKER_DIALOG)){
+            numberPicker.setValue( ((MainActivity) getActivity()).getSlicesPerPerson() );
+        }
 
         builder.setView(view);
         builder.setTitle("Slices Per Pizza");

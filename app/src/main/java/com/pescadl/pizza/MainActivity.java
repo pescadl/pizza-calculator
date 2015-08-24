@@ -11,8 +11,8 @@ import android.widget.GridView;
 
 public class MainActivity extends AppCompatActivity implements NumberPickerDialog.NumberPickerDialogListener, AddPizzaDialog.AddPizzaDialogListener, EditPizzaDialog.EditPizzaDialogListener, DeletePizzaDialog.DeletePizzaDialogListener{
 
-    private final String TAG_PIZZA_NUMBER_PICKER_DIALOG = "PizzaNumberPickerDialog";
-    private final String TAG_PERSON_NUMBER_PICKER_DIALOG = "PersonNumberPickerDialog";
+    public final String TAG_PIZZA_NUMBER_PICKER_DIALOG = "PizzaNumberPickerDialog";
+    public final String TAG_PERSON_NUMBER_PICKER_DIALOG = "PersonNumberPickerDialog";
 
     private GridAdapter adapter;
     private int gridPositionClicked;
@@ -128,11 +128,11 @@ public class MainActivity extends AppCompatActivity implements NumberPickerDialo
         return gridPositionClicked;
     }
 
-    private int getSlicesPerPizza(){
+    public int getSlicesPerPizza(){
         return Integer.parseInt(((EditText) findViewById(R.id.text_slices_per_pizza)).getText().toString() );
     }
 
-    private int getSlicesPerPerson(){
+    public int getSlicesPerPerson(){
         return Integer.parseInt(((EditText) findViewById(R.id.text_slices_per_person)).getText().toString() );
     }
 
